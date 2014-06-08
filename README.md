@@ -11,8 +11,9 @@ Feel free to use it all you want in your Android apps provided that you cite thi
 
 <img src="https://raw.github.com/Manabu-GT/GlassView/master/art/readme_demo.gif" width=246 height=421 alt="Quick Demo">
 
-Try out the sample application: (TBA)
+Try out the sample application:
 
+Coming soon...
 
 Requirements
 -------------
@@ -41,7 +42,7 @@ android {
 
 Usage
 ------
-Using the library is really simple, just look at the source code of the [provided sample][2].
+Using the library is really simple, just look at the source code of the [provided sample][4].
 
 Also, you can optionally set the following attributes in your layout xml file to customize the behavior
 of the GlassView.
