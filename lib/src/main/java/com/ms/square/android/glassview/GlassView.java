@@ -1,5 +1,6 @@
 package com.ms.square.android.glassview;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -45,6 +46,10 @@ public class GlassView extends RelativeLayout {
     private float mScaleFactor;
 
     private boolean mParentViewDrawn;
+
+    private ViewTreeObserver.OnGlobalLayoutListener mGlobalLayoutListener;
+
+    private ViewTreeObserver.OnScrollChangedListener mScrollChangedListener;
 
     public GlassView(Context context) {
         super(context);
@@ -124,13 +129,54 @@ public class GlassView extends RelativeLayout {
         }
     }
 
+    private ViewTreeObserver.OnGlobalLayoutListener getGlobalLayoutListener() {
+        if (mGlobalLayoutListener == null) {
+            mGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+                /**
+                 * Callback method to be invoked when the global layout state or the visibility of views
+                 * within the view tree changes
+                 */
+                @Override
+                public void onGlobalLayout() {
+                    //Log.d(TAG, "onGlobalLayout() called");
+                    invalidate();
+                }
+            };
+        }
+        return mGlobalLayoutListener;
+    }
+
+    private ViewTreeObserver.OnScrollChangedListener getScrollChangedListener() {
+        if (mScrollChangedListener == null) {
+            mScrollChangedListener = new ViewTreeObserver.OnScrollChangedListener() {
+                /**
+                 * Callback method to be invoked when something in the view tree
+                 * has been scrolled.
+                 */
+                @Override
+                public void onScrollChanged() {
+                    //Log.d(TAG, "onScrollChanged() called");
+                    invalidate();
+                }
+            };
+        }
+        return mScrollChangedListener;
+    }
+
+    private static boolean isPostHoneycomb() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB;
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         mRenderScript = RenderScript.create(getContext());
         mBlur = ScriptIntrinsicBlur.create(mRenderScript, Element.U8_4(mRenderScript));
-        getViewTreeObserver().addOnGlobalLayoutListener(mGlobalLayoutListener);
-        getViewTreeObserver().addOnScrollChangedListener(mOnScrollChangedListener);
+        if (isPostHoneycomb() && isHardwareAccelerated()) {
+            getViewTreeObserver().addOnGlobalLayoutListener(getGlobalLayoutListener());
+            getViewTreeObserver().addOnScrollChangedListener(getScrollChangedListener());
+        }
     }
 
     @Override
@@ -147,10 +193,14 @@ public class GlassView extends RelativeLayout {
         }
         cleanUpBitmaps();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
+        if (mGlobalLayoutListener != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                getViewTreeObserver().removeOnGlobalLayoutListener(mGlobalLayoutListener);
+            }
         }
-        getViewTreeObserver().removeOnScrollChangedListener(mOnScrollChangedListener);
+        if (mScrollChangedListener != null) {
+            getViewTreeObserver().removeOnScrollChangedListener(mScrollChangedListener);
+        }
     }
 
     @Override
@@ -164,6 +214,7 @@ public class GlassView extends RelativeLayout {
     public void draw(Canvas canvas)  {
         View parent = (View) getParent();
 
+        // prevent draw() from being recursively called
         if (mParentViewDrawn) {
             return;
         }
@@ -177,28 +228,4 @@ public class GlassView extends RelativeLayout {
         super.draw(canvas);
         mParentViewDrawn = false;
     }
-
-    private ViewTreeObserver.OnGlobalLayoutListener mGlobalLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
-        /**
-         * Callback method to be invoked when the global layout state or the visibility of views
-         * within the view tree changes
-         */
-        @Override
-        public void onGlobalLayout() {
-            //Log.d(TAG, "onGlobalLayout() called");
-            invalidate();
-        }
-    };
-
-    private ViewTreeObserver.OnScrollChangedListener mOnScrollChangedListener = new ViewTreeObserver.OnScrollChangedListener() {
-        /**
-         * Callback method to be invoked when something in the view tree
-         * has been scrolled.
-         */
-        @Override
-        public void onScrollChanged() {
-            //Log.d(TAG, "onScrollChanged() called");
-            invalidate();
-        }
-    };
 }
