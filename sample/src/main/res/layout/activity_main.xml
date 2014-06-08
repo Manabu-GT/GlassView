@@ -1,0 +1,56 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:glassview="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/bg_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/lolipop_bg"/>
+        </FrameLayout>
+    </ScrollView>
+
+    <com.ms.square.android.glassview.GlassView
+        android:id="@+id/top_glass_view"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:layout_gravity="top"
+        android:background="#55000000">
+        <TextView
+            android:id="@+id/prompt_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="BlurRadius (0 ~ 25)"
+            android:textSize="18sp"
+            android:textColor="@android:color/white" />
+
+        <SeekBar
+            android:id="@+id/seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/prompt_txt"
+            android:progress="5"
+            android:max="25"/>
+    </com.ms.square.android.glassview.GlassView>
+
+    <com.ms.square.android.glassview.GlassView
+        android:id="@+id/bottom_glass_view"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_gravity="bottom"
+        android:background="#55ffffff">
+    </com.ms.square.android.glassview.GlassView>
+
+</merge>

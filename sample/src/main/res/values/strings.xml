@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">GlassView Demo</string>
+    <string name="action_img_switch">Switch Image</string>
+
+</resources>
