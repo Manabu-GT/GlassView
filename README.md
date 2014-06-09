@@ -7,13 +7,14 @@ GlassView is an Android library that allows developers to easily add a glass-lik
 GlassView extends a RelativeLayout and it blurs the parent view behind it using the [ScriptIntrinsicBlur][2]
 from v8 Support Library "[android.support.v8.renderscript][3]" package.
 
-Feel free to use it all you want in your Android apps provided that you cite this project.
-
 <img src="https://raw.github.com/Manabu-GT/GlassView/master/art/readme_demo.gif" width=246 height=421 alt="Quick Demo">
 
 Try out the sample application:
 
-Coming soon...
+<a href="https://play.google.com/store/apps/details?id=com.ms.square.android.glassviewsample">
+  <img alt="Android app on Google Play"
+       src="https://developer.android.com/images/brand/en_app_rgb_wo_45.png" />
+</a>
 
 Requirements
 -------------
