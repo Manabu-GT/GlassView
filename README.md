@@ -36,7 +36,7 @@ dependencies {
 android {
     defaultConfig {
         renderscriptTargetApi 19
-        renderscriptSupportMode true
+        renderscriptSupportModeEnabled true
     }
 }
 ```
