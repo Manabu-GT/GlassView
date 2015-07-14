@@ -2,19 +2,18 @@ apply plugin: 'android-library'
 apply plugin: 'maven'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.0.3"
+    compileSdkVersion 21
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
-        packageName "com.ms.square.android.glassview"
         minSdkVersion 8
-        targetSdkVersion 19
-        renderscriptTargetApi 19
-        renderscriptSupportMode true
+        targetSdkVersion 21
+        renderscriptTargetApi 21
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
