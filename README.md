@@ -1,5 +1,9 @@
-GlassView
+GlassView [Deprecated] 
 ===========
+
+#### ===deprecated===
+
+**This library is no longer maintained. Instead, please use [EtsyBlur lib's BlurringView][5] if you are looking for the same kind of functionality.**
 
 GlassView is an Android library that allows developers to easily add a glass-like effect inspired by a 
 [GlassActionBar][1].
@@ -113,3 +117,4 @@ License
 [2]: http://developer.android.com/reference/android/renderscript/ScriptIntrinsicBlur.html
 [3]: http://developer.android.com/reference/android/support/v8/renderscript/package-summary.html
 [4]: https://github.com/Manabu-GT/GlassView/tree/master/sample
+[5]: https://github.com/Manabu-GT/EtsyBlur
